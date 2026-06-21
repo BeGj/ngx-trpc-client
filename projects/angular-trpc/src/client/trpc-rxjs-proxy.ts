@@ -90,7 +90,7 @@ function createTRPCRxJSClientProxy<TRouter extends AnyRouter>(client: TRPCClient
     }
     return createRecursiveProxy(({ path, args }) => {
       const pathCopy = [key, ...path];
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+       
       const clientCallType = pathCopy.pop()! as keyof DecorateProcedure<any, any>;
 
       const procedureType = clientCallTypeMap[clientCallType];

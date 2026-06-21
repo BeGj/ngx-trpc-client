@@ -1,13 +1,14 @@
-import { Component, inject } from '@angular/core';
-import { TrpcClient } from '../../trpc-client';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { rxResource, toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs';
+import { TrpcClient } from '../../trpc-client';
 
 @Component({
   selector: 'app-blog',
   imports: [],
   templateUrl: './blog.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './blog.css',
 })
 export class Blog {
