@@ -4,7 +4,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
-      "angular-trpc": ["./projects/angular-trpc/src/public-api.ts"]
+      "ngx-trpc-client": ["./projects/ngx-trpc-client/src/public-api.ts"]
     },
     "strict": true,
     "noImplicitOverride": true,
@@ -28,10 +28,10 @@
   "files": [],
   "references": [
     {
-      "path": "./projects/angular-trpc/tsconfig.lib.json"
+      "path": "./projects/ngx-trpc-client/tsconfig.lib.json"
     },
     {
-      "path": "./projects/angular-trpc/tsconfig.spec.json"
+      "path": "./projects/ngx-trpc-client/tsconfig.spec.json"
     },
     {
       "path": "./projects/demo/tsconfig.app.json"

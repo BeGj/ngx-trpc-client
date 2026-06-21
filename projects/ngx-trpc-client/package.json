@@ -1,0 +1,24 @@
+{
+  "name": "ngx-trpc-client",
+  "version": "0.0.1",
+  "description": "Type-safe tRPC client for Angular with RxJS observables and SSR transfer state support",
+  "license": "MIT",
+  "author": "BeGj",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BeGj/ngx-trpc-client.git"
+  },
+  "bugs": "https://github.com/BeGj/ngx-trpc-client/issues",
+  "homepage": "https://github.com/BeGj/ngx-trpc-client#readme",
+  "keywords": ["angular", "trpc", "rxjs", "ssr", "signals", "type-safe"],
+  "peerDependencies": {
+    "@angular/common": "^20.3.0",
+    "@angular/core": "^20.3.0",
+    "@trpc/server": "^10.25.0 || ^11.0.0",
+    "superjson": "^2.2.1"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "sideEffects": false
+}

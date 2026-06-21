@@ -1,5 +1,5 @@
 import { AppRouter } from '../trpc/appRouter';
-import { createTrpcClient } from 'angular-trpc';
+import { createTrpcClient } from 'ngx-trpc-client';
 import SuperJSON from 'superjson';
 
 export const { provideTrpcClient, TrpcClient } = createTrpcClient<AppRouter>({

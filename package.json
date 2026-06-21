@@ -1,5 +1,5 @@
 {
-  "name": "angular-trpc",
+  "name": "ngx-trpc-client",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -9,8 +9,11 @@
     "test": "ng test",
     "format": "prettier . --write",
     "serve:ssr:demo": "node dist/demo/server/server.mjs",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "build:lib": "cp CHANGELOG.md projects/ngx-trpc-client/ && ng build ngx-trpc-client",
+    "publish:lib": "pnpm run build:lib && npm publish ./dist/ngx-trpc-client --access public"
   },
+  "packageManager": "pnpm@11.8.0",
   "prettier": {
     "printWidth": 100,
     "singleQuote": true,

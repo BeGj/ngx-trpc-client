@@ -6,20 +6,20 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "angular-trpc": {
+    "ngx-trpc-client": {
       "projectType": "library",
-      "root": "projects/angular-trpc",
-      "sourceRoot": "projects/angular-trpc/src",
+      "root": "projects/ngx-trpc-client",
+      "sourceRoot": "projects/ngx-trpc-client/src",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular/build:ng-packagr",
           "configurations": {
             "production": {
-              "tsConfig": "projects/angular-trpc/tsconfig.lib.prod.json"
+              "tsConfig": "projects/ngx-trpc-client/tsconfig.lib.prod.json"
             },
             "development": {
-              "tsConfig": "projects/angular-trpc/tsconfig.lib.json"
+              "tsConfig": "projects/ngx-trpc-client/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
@@ -27,17 +27,17 @@
         "test": {
           "builder": "@angular/build:karma",
           "options": {
-            "tsConfig": "projects/angular-trpc/tsconfig.spec.json"
+            "tsConfig": "projects/ngx-trpc-client/tsconfig.spec.json"
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
             "lintFilePatterns": [
-              "projects/angular-trpc/**/*.ts",
-              "projects/angular-trpc/**/*.html"
+              "projects/ngx-trpc-client/**/*.ts",
+              "projects/ngx-trpc-client/**/*.html"
             ],
-            "eslintConfig": "projects/angular-trpc/eslint.config.js"
+            "eslintConfig": "projects/ngx-trpc-client/eslint.config.js"
           }
         }
       }
