@@ -85,7 +85,7 @@ function createTRPCRxJSClientProxy<TRouter extends AnyRouter>(client: TRPCClient
     }
     return createRecursiveProxy(({ path, args }) => {
       const pathCopy = [key, ...path];
-       
+
       const clientCallType = pathCopy.pop()! as keyof DecorateProcedure<any>;
 
       const procedureType = clientCallTypeMap[clientCallType];

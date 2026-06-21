@@ -46,11 +46,13 @@ function createCustomFetch(serverUrl?: string) {
     }
 
     if (typeof window === 'undefined') {
-      const base = serverUrl ?? (() => {
-        const host = process.env['NITRO_HOST'] ?? process.env['ANALOG_HOST'] ?? 'localhost';
-        const port = process.env['NITRO_PORT'] ?? process.env['ANALOG_PORT'] ?? 4205;
-        return `http://${host}:${port}`;
-      })();
+      const base =
+        serverUrl ??
+        (() => {
+          const host = process.env['NITRO_HOST'] ?? process.env['ANALOG_HOST'] ?? 'localhost';
+          const port = process.env['NITRO_PORT'] ?? process.env['ANALOG_PORT'] ?? 4205;
+          return `http://${host}:${port}`;
+        })();
       if (input instanceof Request) {
         input = new Request(base, input);
       } else {
