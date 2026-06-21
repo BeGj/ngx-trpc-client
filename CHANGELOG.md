@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [0.0.1] - 2026-06-21
+
 ### Added
 
 - Type-safe tRPC client proxy returning RxJS Observables
