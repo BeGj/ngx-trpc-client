@@ -1,0 +1,25 @@
+name: Setup Node.js and pnpm
+description: Install pnpm and Node.js with dependency caching
+
+inputs:
+  node-version:
+    description: Node.js version to use
+    required: false
+    default: '24'
+
+runs:
+  using: composite
+  steps:
+    # pnpm version comes from the "packageManager" field in package.json
+    - name: Install pnpm
+      uses: pnpm/action-setup@v6
+
+    - name: Setup Node.js ${{ inputs.node-version }}
+      uses: actions/setup-node@v6
+      with:
+        node-version: ${{ inputs.node-version }}
+        cache: 'pnpm'
+
+    - name: Install dependencies
+      shell: bash
+      run: pnpm install

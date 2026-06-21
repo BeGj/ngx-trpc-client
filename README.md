@@ -1,4 +1,4 @@
-# Angular-trpc
+# ngx-trpc-client
 
 Forked from https://github.com/analogjs/analog/tree/beta/packages/trpc because of https://github.com/analogjs/analog/issues/1894
 
@@ -17,7 +17,7 @@ The important part is to know the server url and route in the client, and to be 
 
 #### Install
 
-`pnpm install angular-trpc superjson`
+`pnpm install ngx-trpc-client superjson`
 
 #### Configure
 
@@ -28,7 +28,7 @@ Should look like
 ```ts
 // trpc-client.ts
 import { AppRouter } from '../trpc/appRouter'; // Imported from wherever you have your TRPC server in your repo/monorepo.
-import { createTrpcClient } from 'angular-trpc';
+import { createTrpcClient } from 'ngx-trpc-client';
 import SuperJSON from 'superjson';
 
 export const { provideTrpcClient, TrpcClient } = createTrpcClient<AppRouter>({
@@ -122,9 +122,9 @@ Library is open for contributions! Please make an issue or a merge request
 
 ## Getting started contibuting
 
-- Clone the repo or a fork of it `git clone git@github.com:BeGj/angular-trpc.git`
+- Clone the repo or a fork of it `git clone git@github.com:BeGj/ngx-trpc-client.git`
 - Install dependencies using pnpm `pnpm i`. If you dont have pnpm install it using npm or corepack
-- Build library to dist `ng build angular-trpc`
+- Build library to dist `ng build ngx-trpc-client`
 - Serve the demo applicaiton if you want `ng serve`
 
 ## TODO
