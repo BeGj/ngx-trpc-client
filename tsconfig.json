@@ -4,7 +4,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
-      "angular-trpc": ["./dist/angular-trpc"]
+      "angular-trpc": ["./projects/angular-trpc/src/public-api.ts"]
     },
     "strict": true,
     "noImplicitOverride": true,
