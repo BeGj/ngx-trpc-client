@@ -31,6 +31,14 @@ jobs:
             exit 1
           fi
 
+      - name: Verify CHANGELOG has a dated entry for this version
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          if ! grep -qE "^## \[$VERSION\] - " CHANGELOG.md; then
+            echo "::error::No dated CHANGELOG.md entry for $VERSION (expected '## [$VERSION] - YYYY-MM-DD')"
+            exit 1
+          fi
+
       - name: Build library
         run: pnpm run build:lib
 
