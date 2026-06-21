@@ -1,6 +1,6 @@
 {
   "name": "ngx-trpc-client",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Type-safe tRPC client for Angular with RxJS observables and SSR transfer state support",
   "license": "MIT",
   "author": "BeGj",
