@@ -20,6 +20,7 @@ import { FetchEsque } from '@trpc/client/dist/internals/types';
 
 export interface TrpcOptions<T extends AnyRouter> {
   url: string;
+  serverUrl?: string;
   options?: Partial<CreateTRPCClientOptions<T>>;
   batchLinkOptions?: Omit<HttpBatchLinkOptions, 'url' | 'headers'>;
 }
@@ -29,37 +30,41 @@ export type TrpcClient<AppRouter extends AnyRouter> = ReturnType<
 >;
 const tRPC_INJECTION_TOKEN = new InjectionToken<unknown>('@analogjs/trpc proxy client');
 
-function customFetch(input: RequestInfo | URL, init?: RequestInit & { method: 'GET' }) {
-  if ((globalThis as any).$fetch) {
-    return (globalThis as any).$fetch
-      .raw(input.toString(), init)
-      .catch((e: any) => {
-        throw e;
-      })
-      .then((response: any) => ({
-        ...response,
-        headers: response.headers,
-        json: () => Promise.resolve(response._data),
-      }));
-  }
-
-  // dev server trpc for analog & nitro
-  if (typeof window === 'undefined') {
-    const host = process.env['NITRO_HOST'] ?? process.env['ANALOG_HOST'] ?? 'localhost';
-    const port = process.env['NITRO_PORT'] ?? process.env['ANALOG_PORT'] ?? 4205;
-    const base = `http://${host}:${port}`;
-    if (input instanceof Request) {
-      input = new Request(base, input);
-    } else {
-      input = new URL(input, base);
+function createCustomFetch(serverUrl?: string) {
+  return (input: RequestInfo | URL, init?: RequestInit & { method: 'GET' }) => {
+    if ((globalThis as any).$fetch) {
+      return (globalThis as any).$fetch
+        .raw(input.toString(), init)
+        .catch((e: any) => {
+          throw e;
+        })
+        .then((response: any) => ({
+          ...response,
+          headers: response.headers,
+          json: () => Promise.resolve(response._data),
+        }));
     }
-  }
 
-  return fetch(input, init);
+    if (typeof window === 'undefined') {
+      const base = serverUrl ?? (() => {
+        const host = process.env['NITRO_HOST'] ?? process.env['ANALOG_HOST'] ?? 'localhost';
+        const port = process.env['NITRO_PORT'] ?? process.env['ANALOG_PORT'] ?? 4205;
+        return `http://${host}:${port}`;
+      })();
+      if (input instanceof Request) {
+        input = new Request(base, input);
+      } else {
+        input = new URL(input, base);
+      }
+    }
+
+    return fetch(input, init);
+  };
 }
 
 export const createTrpcClient = <AppRouter extends AnyRouter>({
   url,
+  serverUrl,
   options,
   batchLinkOptions,
 }: TrpcOptions<AppRouter>) => {
@@ -78,12 +83,12 @@ export const createTrpcClient = <AppRouter extends AnyRouter>({
             ...(options?.links ?? []),
             transferStateLink(),
             httpBatchLink({
-              ...(batchLinkOptions ?? {}),
               headers() {
                 return TrpcHeaders();
               },
-              fetch: customFetch as FetchEsque,
+              fetch: createCustomFetch(serverUrl) as FetchEsque,
               url: url ?? '',
+              ...(batchLinkOptions ?? {}),
             }),
           ],
         });
