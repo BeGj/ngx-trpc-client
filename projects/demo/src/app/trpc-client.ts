@@ -4,7 +4,7 @@ import SuperJSON from 'superjson';
 
 export const { provideTrpcClient, TrpcClient } = createTrpcClient<AppRouter>({
   url: '/api/trpc',
-  serverUrl: `http://localhost:${process.env['PORT'] ?? 4200}`,
+  serverUrl: typeof process !== 'undefined' ? `http://localhost:${process.env['PORT'] ?? 4200}` : undefined,
   options: {
     transformer: SuperJSON,
   },

@@ -4,9 +4,9 @@ import {
   isMainModule,
   writeResponseToNodeResponse,
 } from '@angular/ssr/node';
+import { createExpressMiddleware } from '@trpc/server/adapters/express';
 import express from 'express';
 import { join } from 'node:path';
-import { createExpressMiddleware } from '@trpc/server/adapters/express';
 import { appRouter } from './trpc/appRouter';
 import { createContext } from './trpc/context';
 
