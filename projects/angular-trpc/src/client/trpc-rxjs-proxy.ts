@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type {
   AnyMutationProcedure,
   AnyProcedure,
@@ -33,10 +34,7 @@ type Resolver<TProcedure extends AnyProcedure> = (
 ) => RxJSObservable<inferTransformedProcedureOutput<TProcedure>>;
 
 // Removed subscription and using new type
-type DecorateProcedure<
-  TProcedure extends AnyProcedure,
-  TRouter extends AnyRouter,
-> = TProcedure extends AnyQueryProcedure
+type DecorateProcedure<TProcedure extends AnyProcedure> = TProcedure extends AnyQueryProcedure
   ? {
       query: Resolver<TProcedure>;
     }
@@ -47,19 +45,16 @@ type DecorateProcedure<
     : never;
 
 // Removed subscription and using new type
-type DecoratedProcedureRecord<
-  TProcedures extends ProcedureRouterRecord,
-  TRouter extends AnyRouter,
-> = {
+type DecoratedProcedureRecord<TProcedures extends ProcedureRouterRecord> = {
   [TKey in keyof TProcedures]: TProcedures[TKey] extends AnyRouter
-    ? DecoratedProcedureRecord<TProcedures[TKey]['_def']['record'], TProcedures[TKey]>
+    ? DecoratedProcedureRecord<TProcedures[TKey]['_def']['record']>
     : TProcedures[TKey] extends AnyProcedure
-      ? DecorateProcedure<TProcedures[TKey], TRouter>
+      ? DecorateProcedure<TProcedures[TKey]>
       : never;
 };
 
 // Removed subscription and using new type
-const clientCallTypeMap: Record<keyof DecorateProcedure<any, any>, ProcedureType> = {
+const clientCallTypeMap: Record<keyof DecorateProcedure<any>, ProcedureType> = {
   query: 'query',
   mutate: 'mutation',
 };
@@ -75,7 +70,7 @@ type UntypedClientProperties =
 
 // Nothing changed, only using new types
 export type CreateTrpcProxyClient<TRouter extends AnyRouter> =
-  DecoratedProcedureRecord<TRouter['_def']['record'], TRouter> extends infer TProcedureRecord
+  DecoratedProcedureRecord<TRouter['_def']['record']> extends infer TProcedureRecord
     ? UntypedClientProperties & keyof TProcedureRecord extends never
       ? TProcedureRecord
       : IntersectionError<UntypedClientProperties & keyof TProcedureRecord>
@@ -91,7 +86,7 @@ function createTRPCRxJSClientProxy<TRouter extends AnyRouter>(client: TRPCClient
     return createRecursiveProxy(({ path, args }) => {
       const pathCopy = [key, ...path];
        
-      const clientCallType = pathCopy.pop()! as keyof DecorateProcedure<any, any>;
+      const clientCallType = pathCopy.pop()! as keyof DecorateProcedure<any>;
 
       const procedureType = clientCallTypeMap[clientCallType];
 

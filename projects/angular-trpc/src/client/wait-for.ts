@@ -1,5 +1,6 @@
 import { firstValueFrom, isObservable, Observable } from 'rxjs';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare const Zone: any;
 
 export async function waitFor<T>(prom: Promise<T> | Observable<T>): Promise<T> {
@@ -13,9 +14,9 @@ export async function waitFor<T>(prom: Promise<T> | Observable<T>): Promise<T> {
 
   const macroTask = Zone.current.scheduleMacroTask(
     `AnalogContentResolve-${Math.random()}`,
-    () => {},
+    () => { /* noop */ },
     {},
-    () => {},
+    () => { /* noop */ },
   );
   return prom.then((p: T) => {
     macroTask.invoke();
