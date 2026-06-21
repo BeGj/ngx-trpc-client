@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 interface ProxyCallbackOptions {
   path: string[];
   args: unknown[];
@@ -6,7 +5,9 @@ interface ProxyCallbackOptions {
 
 type ProxyCallback = (opts: ProxyCallbackOptions) => unknown;
 
-const noop = () => {};
+const noop = () => {
+  /* proxy target; never invoked directly */
+};
 
 function createInnerProxy(callback: ProxyCallback, path: string[]): unknown {
   return new Proxy(noop, {

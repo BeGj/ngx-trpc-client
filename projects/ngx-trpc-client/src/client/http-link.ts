@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Observable } from 'rxjs';
 import type { AnyRouter } from '@trpc/server';
 import type { TRPCLink, TRPCClientRuntime, OperationLink, OperationResult, HTTPHeaders } from './types';

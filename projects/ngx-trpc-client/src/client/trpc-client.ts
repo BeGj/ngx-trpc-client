@@ -75,7 +75,7 @@ export type CreateTrpcProxyClient<TRouter extends AnyRouter> =
 
 function createTRPCRxJSClientProxy<TRouter extends AnyRouter>(client: TRPCClient<TRouter>) {
   return createFlatProxy<CreateTrpcProxyClient<TRouter>>((key) => {
-    if (client.hasOwnProperty(key)) {
+    if (Object.prototype.hasOwnProperty.call(client, key)) {
       return (client as any)[key as any];
     }
     return createRecursiveProxy(({ path, args }) => {
